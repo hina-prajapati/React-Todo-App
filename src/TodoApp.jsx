@@ -7,9 +7,6 @@ function TodoApp() {
     const [editIndex, setEditIndex] = useState(null);
     const [search, setSearch] = useState('');
 
-
-
-
     const handlSubmitBtn = (e) => {
         if (todo === '') {
             alert("Pls Enter TODO!");
