@@ -32,6 +32,10 @@ function TodoApp() {
 
     const handleDeleteBtn = (index) => {
         let updateList = todoList.filter((_, i) => i !== index);
+        if(editIndex !==null){
+            setEditIndex("");
+            setTodo("");
+        }
         setTodoList(updateList)
     }
 

@@ -6,6 +6,7 @@ import TodoApp from './TodoApp';
 import SubmissionsList from './SubmissionsList';
 import { FaSun, FaMoon } from 'react-icons/fa'; // install using npm install react-icons
 import Practice from './practice';
+import HandleForm from './form2';
 
 export default function App() {
   const [color, setColor] = useState("white");
@@ -22,7 +23,8 @@ export default function App() {
      { isDarkMode ? <FaMoon style={{color:"white"}} /> : <FaSun style={{color:"yellow"}} /> }
     </button>
     {/* <Form /> */}
-    <TodoApp />
+    {/* <TodoApp /> */}
+    <HandleForm />
     </div>
   );
 }

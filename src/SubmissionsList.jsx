@@ -4,7 +4,7 @@ function SubmissionsList() {
   const [submissions, setSubmissions] = useState([]);
 
   useEffect(() => {
-    fetch("http://localhost:5000/submissions")
+    fetch("https://ab35c56771fe.ngrok-free.app/submissions")
       .then((res) => res.json())
       .then((data) => {
         setSubmissions(data);
@@ -19,7 +19,7 @@ function SubmissionsList() {
     if (!confirmDelete) return;
 
     try {
-      const res = await fetch(`http://localhost:5000/submissions/${id}`, {
+      const res = await fetch(`https://ab35c56771fe.ngrok-free.app/submissions/${id}`, {
         method: "DELETE",
       });
 
@@ -45,7 +45,7 @@ function SubmissionsList() {
             <p><strong>Email:</strong> {item.email}</p>
             <p><strong>Phone:</strong> {item.phone}</p>
             {item.image ? (
-              <img src={`http://localhost:5000/uploads/${item.image}`} alt="Uploaded" width="150" />
+              <img src={`https://ab35c56771fe.ngrok-free.app/uploads/${item.image}`} alt="Uploaded" width="150" />
             ) : (
               <p>No image uploaded</p>
             )}

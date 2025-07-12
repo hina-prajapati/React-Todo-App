@@ -3,7 +3,6 @@ import './App.css';
 import SubmissionsList from "./SubmissionsList";
 import TodoApp from "./TodoApp";
 
-
 function Form() {
     const fileInputRef = useRef(null);
 
@@ -29,9 +28,9 @@ function Form() {
         data.append("image", formData.image); // ✅ append image as file
     
         try {
-            const res = await fetch("http://localhost:5000/submit", {
+            const res = await fetch("https://ab35c56771fe.ngrok-free.app/submit", {
                 method: "POST",
-                body: data, // ✅ don't set headers, browser will auto-set multipart
+                body: data,
             });
     
             const result = await res.json();
