@@ -16,7 +16,7 @@ function HandleForm() {
     }
 
     try {
-      const fetchData = await fetch("http://localhost:5000/submitFormvv", {
+      const fetchData = await fetch("http://localhost:5000/submitForm", {
         method: "POST",
         headers: {
           "Content-Type": "application/json" // ✅ important

@@ -6,7 +6,7 @@ import TodoApp from './TodoApp';
 import SubmissionsList from './SubmissionsList';
 import { FaSun, FaMoon } from 'react-icons/fa'; // install using npm install react-icons
 import Practice from './practice';
-import HandleForm from './form2';
+import HandleForm from './HandleForm';
 
 export default function App() {
 
@@ -37,7 +37,8 @@ export default function App() {
   return (
     <div style={{}}>
       <p>{loading ? "Loading" : ""}</p>
-      <ul>
+      <SubmissionsList />
+      {/* <ul>
         {article.map((item, index) => (
 
           <li key={index}>
@@ -57,7 +58,8 @@ export default function App() {
             />
           </li>
         ))}
-      </ul>
+      </ul> */}
+      <HandleForm />
     </div>
   );
 }

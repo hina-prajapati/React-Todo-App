@@ -2,6 +2,7 @@ const express = require("express");
 const router = express.Router();
 const multer = require("multer");
 const path = require("path");
+const db = require("../db"); // ✅ Import your DB connection
 
 // Multer config
 const storage = multer.diskStorage({
@@ -13,20 +14,28 @@ const storage = multer.diskStorage({
 });
 const upload = multer({ storage });
 
-// Route for form submission
 router.post("/submit", upload.single("image"), (req, res) => {
-  const { name } = req.body;
+  // console.log(req, res);
+  const { name, email, phone, gender, education } = req.body;
   const image = req.file ? req.file.filename : null;
 
-  if (!name || !image) {
-    return res.status(400).json({ message: "Name and image are required." });
+  // Validation check
+  if (!name || !email || !phone || !image || !gender || !education) {
+    return res.status(400).json({ message: "All fields are required." });
   }
 
-  console.log("Received Name:", name);
-  console.log("Received Image:", image);
-
-  // You can save this to DB if needed
-  return res.json({ message: "Form submitted successfully!" });
+  // ✅ Insert into MySQL
+  db.query(
+    "INSERT INTO submissions (name, email, phone, image, gender, education) VALUES (?, ?, ?, ?, ?, ?)",
+    [name, email, phone, image, gender, education],
+    (err, result) => {
+      if (err) {
+        console.error("❌ DB Insert Error:", err);
+        return res.status(500).json({ message: "DB error" });
+      }
+      return res.json({ message: "Form submitted and saved!" });
+    }
+  );
 });
 
 // Fetch all submissions
@@ -35,7 +44,6 @@ router.get("/submissions", (req, res) => {
     if (err) return res.status(500).json({ error: err });
     console.log("✅ Fetched submissions:", results); // ✅ This logs to terminal
     res.json(results); // returns array of submissions
-
   });
 });
 
@@ -43,10 +51,14 @@ router.get("/submissions", (req, res) => {
 router.delete("/submissions/:id", (req, res) => {
   const submissionId = req.params.id;
 
-  db.query("DELETE FROM submissions WHERE id = ?", [submissionId], (err, result) => {
-    if (err) return res.status(500).json({ error: err });
-    res.json({ message: "Submission deleted successfully" });
-  });
+  db.query(
+    "DELETE FROM submissions WHERE id = ?",
+    [submissionId],
+    (err, result) => {
+      if (err) return res.status(500).json({ error: err });
+      res.json({ message: "Submission deleted successfully" });
+    }
+  );
 });
 
 module.exports = router;
